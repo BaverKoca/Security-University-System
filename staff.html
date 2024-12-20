@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://wallpaperaccess.com/full/253342.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Fixed Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(59, 79, 115, 0.7); /* Semi-transparent background */
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            border-bottom: 5px solid #4CAF50;
+            z-index: 1000;
+        }
+
+        /* Content Container */
+        .container {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-top: 100px;
+        }
+
+        h2 {
+            color: #3b4f73;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5F6368;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            background-color: #ffffff;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .requests {
+            margin-top: 20px;
+        }
+
+        .request {
+            background-color: #f8f8f8;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .request p {
+            margin: 5px 0;
+        }
+
+        .form-header {
+            background-color: #E8F4E8;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            font-size: 24px;
+            margin: 0;
+            color: #2E3B4E;
+        }
+
+        /* Styling for request student, request type, and status */
+        .request p strong {
+            color: black; /* Make labels black */
+        }
+
+        /* Styling for content next to the labels */
+        .request p {
+            color: black; /* Make the content black */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Staff Dashboard
+    </header>
+    <div class="container">
+        <h2>Enter/Update Student Grade Records</h2>
+        <form id="grade-form">
+            <label for="student-number">Student Number:</label>
+            <input type="text" id="student-number" name="student-number" required>
+
+            <label for="student-gpa">GPA:</label>
+            <input type="text" id="student-gpa" name="student-gpa" required>
+
+            <label for="student-cgpa">CGPA:</label>
+            <input type="text" id="student-cgpa" name="student-cgpa" required>
+
+            <button type="submit">Update Records</button>
+        </form>
+
+        <h2>Student Requests</h2>
+        <div class="requests">
+            <div class="request">
+                <p><strong>Student:</strong> John Doe</p>
+                <p><strong>Request Type:</strong> Transcript</p>
+                <p><strong>Status:</strong> Pending</p>
+                <button>Prepare Document</button>
+                <button>Send Invoice</button>
+            </div>
+
+            <div class="request">
+                <p><strong>Student:</strong> Jane Smith</p>
+                <p><strong>Request Type:</strong> Certificate</p>
+                <p><strong>Status:</strong> Invoice Sent</p>
+                <button>Send Document</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form submit event handler
+        document.getElementById('grade-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Collect form data
+            const studentNumber = document.getElementById('student-number').value;
+            const gpa = document.getElementById('student-gpa').value;
+            const cgpa = document.getElementById('student-cgpa').value;
+
+            // Send data to backend (assuming backend is running on localhost:3000)
+            fetch('http://localhost:3500/update-student', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    studentNumber: studentNumber,
+                    gpa: gpa,
+                    cgpa: cgpa
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Bilgiler başarıyla güncellendi!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Bir hata oluştu, lütfen tekrar deneyin.');
+            });
+        });
+    </script>
+</body>
+</html>
