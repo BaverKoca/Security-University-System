@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Genel stil */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://wallpaperaccess.com/full/253342.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Sabit Başlık */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(59, 79, 115, 0.7); /* Yarı saydam bir arka plan */
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 600;
+            border-bottom: 5px solid #4CAF50;
+            z-index: 1000; /* Diğer öğelerin üstünde olmasını sağlar */
+        }
+
+        /* İçerik alanı */
+        .container {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.8); /* Opaklık ekledik */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-top: 100px; /* Başlık alanının altından başlasın */
+        }
+
+        .form-header {
+            background-color: #E8F4E8;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            font-size: 24px;
+            margin: 0;
+            color: #2E3B4E;
+        }
+
+        h2 {
+            color: #3b4f73;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5F6368;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            background-color: #ffffff;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #add-staff, #add-student {
+            display: none;
+        }
+
+        select {
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Admin Dashboard
+    </header>
+    <div class="container">
+        <label for="form-select">Choose a form:</label>
+        <select id="form-select" name="form-select">
+            <option value="staff">Add Staff</option>
+            <option value="student">Add Student</option>
+        </select>
+
+        <!-- Staff Form -->
+        <div class="form-header">
+            <h2>Add Staff</h2>
+        </div>
+        <form id="add-staff">
+            <label for="staff-name">First Name:</label>
+            <input type="text" id="staff-name" name="staff-name" required>
+
+            <label for="staff-surname">Last Name:</label>
+            <input type="text" id="staff-surname" name="staff-surname" required>
+
+            <label for="staff-email">Email:</label>
+            <input type="email" id="staff-email" name="staff-email" required>
+
+            <label for="staff-phone">Phone:</label>
+            <input type="tel" id="staff-phone" name="staff-phone" required pattern="^[0-9]{10}$" title="Please enter a valid phone number">
+
+            <label for="staff-department">Department:</label>
+            <input type="text" id="staff-department" name="staff-department" required>
+
+            <button type="submit">Add Staff</button>
+        </form>
+
+        <!-- Student Form -->
+        <div class="form-header">
+            <h2>Add Student</h2>
+        </div>
+        <form id="add-student">
+            <label for="student-number">Student ID:</label>
+            <input type="text" id="student-number" name="student-number" required>
+
+            <label for="student-name">First Name:</label>
+            <input type="text" id="student-name" name="student-name" required>
+
+            <label for="student-surname">Last Name:</label>
+            <input type="text" id="student-surname" name="student-surname" required>
+
+            <label for="student-email">Email:</label>
+            <input type="email" id="student-email" name="student-email" required>
+
+            <label for="student-phone">Phone:</label>
+            <input type="tel" id="student-phone" name="student-phone" required pattern="^[0-9]{10}$" title="Please enter a valid phone number">
+
+            <label for="student-department">Department:</label>
+            <input type="text" id="student-department" name="student-department" required>
+
+            <button type="submit">Add Student</button>
+        </form>
+    </div>
+    
+    <script>
+        const formSelect = document.getElementById('form-select');
+        const staffForm = document.getElementById('add-staff');
+        const studentForm = document.getElementById('add-student');
+        
+        formSelect.addEventListener('change', () => {
+            const selectedValue = formSelect.value;
+            staffForm.style.display = 'none';
+            studentForm.style.display = 'none';
+            
+            if (selectedValue === 'staff') {
+                staffForm.style.display = 'block';
+            } else if (selectedValue === 'student') {
+                studentForm.style.display = 'block';
+            }
+        });
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            formSelect.value = 'staff';
+            formSelect.dispatchEvent(new Event('change'));
+        });
+    
+        // Staff form submission
+        staffForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+    
+            const formData = {
+                firstName: document.getElementById('staff-name').value,
+                lastName: document.getElementById('staff-surname').value,
+                email: document.getElementById('staff-email').value,
+                phone: document.getElementById('staff-phone').value,
+                department: document.getElementById('staff-department').value,
+            };
+    
+            // Send data to the backend
+            fetch('/api/staff', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Staff added successfully') {
+                    alert('Staff added successfully!');
+                    staffForm.reset(); // Reset the form
+                } else {
+                    alert(data.message || 'Error adding staff');
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
+    
+        // Student form submission
+        studentForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+    
+            const formData = {
+                studentId: document.getElementById('student-number').value,
+                firstName: document.getElementById('student-name').value,
+                lastName: document.getElementById('student-surname').value,
+                email: document.getElementById('student-email').value,
+                phone: document.getElementById('student-phone').value,
+                department: document.getElementById('student-department').value,
+            };
+    
+            // Send data to the backend
+            fetch('/api/student', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Student added successfully') {
+                    alert('Student added successfully!');
+                    studentForm.reset(); // Reset the form
+                } else {
+                    alert(data.message || 'Error adding student');
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
+    </script>
+    
+</body>
+</html>
