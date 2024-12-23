@@ -146,35 +146,39 @@
         Staff Dashboard
     </header>
     <div class="container">
-        <h2>Enter/Update Student Grade Records</h2>
-        <form id="grade-form">
-            <label for="student-number">Student Number:</label>
-            <input type="text" id="student-number" name="student-number" required>
+        <div class="form-header">
+            <h2>Enter/Update Student Grade Records</h2>
+            <form id="grade-form">
+                <label for="student-number">Student Number:</label>
+                <input type="text" id="student-number" name="student-number" required>
 
-            <label for="student-gpa">GPA:</label>
-            <input type="text" id="student-gpa" name="student-gpa" required>
+                <label for="student-gpa">GPA:</label>
+                <input type="text" id="student-gpa" name="student-gpa" required>
 
-            <label for="student-cgpa">CGPA:</label>
-            <input type="text" id="student-cgpa" name="student-cgpa" required>
+                <label for="student-cgpa">CGPA:</label>
+                <input type="text" id="student-cgpa" name="student-cgpa" required>
 
-            <button type="submit">Update Records</button>
-        </form>
+                <button type="submit">Update Records</button>
+            </form>
+        </div>
 
-        <h2>Student Requests</h2>
-        <div class="requests">
-            <div class="request">
-                <p><strong>Student:</strong> John Doe</p>
-                <p><strong>Request Type:</strong> Transcript</p>
-                <p><strong>Status:</strong> Pending</p>
-                <button>Prepare Document</button>
-                <button>Send Invoice</button>
-            </div>
+        <div class="form-header">
+            <h2>Student Requests</h2>
+            <div class="requests">
+                <div class="request">
+                    <p><strong>Student:</strong> John Doe</p>
+                    <p><strong>Request Type:</strong> Transcript</p>
+                    <p><strong>Status:</strong> Pending</p>
+                    <button>Prepare Document</button>
+                    <button>Send Invoice</button>
+                </div>
 
-            <div class="request">
-                <p><strong>Student:</strong> Jane Smith</p>
-                <p><strong>Request Type:</strong> Certificate</p>
-                <p><strong>Status:</strong> Invoice Sent</p>
-                <button>Send Document</button>
+                <div class="request">
+                    <p><strong>Student:</strong> Jane Smith</p>
+                    <p><strong>Request Type:</strong> Certificate</p>
+                    <p><strong>Status:</strong> Invoice Sent</p>
+                    <button>Send Document</button>
+                </div>
             </div>
         </div>
     </div>
