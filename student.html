@@ -141,47 +141,52 @@
         Student Dashboard
     </header>
     <div class="container">
-        <h2>Request a Document</h2>
-        <form id="request-document">
-            <label for="document-type">Document Type:</label>
-            <select id="document-type" name="document-type" required>
-                <option value="transcript">Transcript</option>
-                <option value="certificate">Student Certificate</option>
-            </select>
+        <div class="form-header">
+            <h2>Request a Document</h2>
+            <form id="request-document">
+                <label for="document-type">Document Type:</label>
+                <select id="document-type" name="document-type" required>
+                    <option value="transcript">Transcript</option>
+                    <option value="certificate">Student Certificate</option>
+                </select>
 
-            <button type="submit">Request Document</button>
-        </form>
+                <button type="submit">Request Document</button>
+            </form>
+        </div>
 
-        <h2>Pending Invoices</h2>
-        <div class="invoices">
-            <div class="invoice">
-                <p><strong>Document:</strong> Transcript</p>
-                <p><strong>Amount:</strong> $50</p>
-                <p><strong>Status:</strong> Pending Payment</p>
-                <label for="receipt-upload">Upload Payment Receipt:</label>
-                <input type="file" id="receipt-upload" name="receipt-upload" accept="image/*" required>
-                <button>Submit Receipt</button>
+        <div class="form-header">
+            <h2>Pending Invoices</h2>
+            <div class="invoices">
+                <div class="invoice">
+                    <p><strong>Document:</strong> Transcript</p>
+                    <p><strong>Amount:</strong> $50</p>
+                    <p><strong>Status:</strong> Pending Payment</p>
+                    <label for="receipt-upload">Upload Payment Receipt:</label>
+                    <input type="file" id="receipt-upload" name="receipt-upload" accept="image/*" required>
+                    <button>Submit Receipt</button>
+                </div>
             </div>
         </div>
 
-        <h2>Requested Documents</h2>
-        <div class="documents">
-            <div class="document">
-                <p><strong>Document:</strong> Transcript</p>
-                <p><strong>Status:</strong> Ready for Download</p>
-                <button>Download Document</button>
+        <div class="form-header">
+            <h2>Requested Documents</h2>
+            <div class="documents">
+                <div class="document">
+                    <p><strong>Document:</strong> Transcript</p>
+                    <p><strong>Status:</strong> Ready for Download</p>
+                    <button>Download Document</button>
+                </div>
             </div>
         </div>
     </div>
     <script>
-        
         const requestDocumentForm = document.getElementById('request-document');
 
         requestDocumentForm.addEventListener('submit', (event) => {
             event.preventDefault();
             const documentType = document.getElementById('document-type').value;
 
-            fetch('http://localhost:2500/api/documents', {
+            fetch('http://localhost:5500/api/documents', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
