@@ -139,11 +139,30 @@
         .request p {
             color: black; /* Make the content black */
         }
+
+        /* Logout button styling */
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+            width: 100%;
+            height: auto;
+        }
+
+        .logout-btn:hover {
+            background-color: #e53935;
+        }
     </style>
 </head>
 <body>
     <header>
-        Staff Dashboard
+        <span>Staff Dashboard</span>
     </header>
     <div class="container">
         <div class="form-header">
@@ -181,6 +200,26 @@
                 </div>
             </div>
         </div>
+
+        <div id="student-form" class="form-header">
+            <h2>Add Student</h2>
+            <form>
+                <label for="student-number">Student ID:</label>
+                <input type="text" id="student-number" name="student-number" required>
+                <label for="student-name">First Name:</label>
+                <input type="text" id="student-name" name="student-name" required>
+                <label for="student-surname">Last Name:</label>
+                <input type="text" id="student-surname" name="student-surname" required>
+                <label for="student-email">Email:</label>
+                <input type="email" id="student-email" name="student-email" required>
+                <label for="student-phone">Phone:</label>
+                <input type="tel" id="student-phone" name="student-phone" required>
+                <label for="student-department">Department:</label>
+                <input type="text" id="student-department" name="student-department" required>
+                <button type="submit">Add Student</button>
+            </form>
+            <button id="logout-btn" class="logout-btn" type="button">Logout</button>
+        </div>
     </div>
 
     <script>
@@ -214,6 +253,18 @@
                 alert('Bir hata oluştu, lütfen tekrar deneyin.');
             });
         });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        });
+
+        (function() {
+            // Prevent access to this page without a valid session
+            if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'staff') {
+                window.location.href = 'index.html';
+            }
+        })();
     </script>
 </body>
 </html>

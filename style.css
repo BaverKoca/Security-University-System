@@ -85,6 +85,31 @@ button:active {
     box-shadow: none;
 }
 
+.logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    display: none;
+}
+
+.logout-btn.show {
+    display: block;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
 @media (max-width: 480px) {
     form {
         width: 90%;
