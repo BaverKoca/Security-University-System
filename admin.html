@@ -32,11 +32,18 @@
             background-color: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 20px 0;
-            text-align: center;
             font-size: 24px;
             font-weight: 600;
             border-bottom: 2px solid #4CAF50;
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header span {
+            flex: 1;
+            text-align: center;
         }
 
         /* Container */
@@ -119,6 +126,25 @@
             display: none;
         }
 
+        /* Logout Button */
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+            width: 100%;
+            height: auto;
+        }
+
+        .logout-btn:hover {
+            background-color: #e53935;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -133,7 +159,7 @@
 </head>
 <body>
     <header>
-        Admin Dashboard
+        <span>Admin Dashboard</span>
     </header>
     <div class="container">
         <label for="form-select">Choose a form:</label>
@@ -189,10 +215,18 @@
 
                 <button type="submit">Add Student</button>
             </form>
+            <button id="logout-btn" class="logout-btn" type="button">Logout</button>
         </div>
     </div>
 
     <script>
+        (function() {
+            // Prevent access to this page without a valid session
+            if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'admin') {
+                window.location.href = 'index.html';
+            }
+        })();
+
         const formSelect = document.getElementById('form-select');
         const staffForm = document.getElementById('staff-form');
         const studentForm = document.getElementById('student-form');
@@ -209,7 +243,10 @@
             }
         });
 
-        // Form submission logic can be added here
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        });
     </script>
 </body>
 </html>
