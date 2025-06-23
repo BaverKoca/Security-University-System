@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Genel Stil */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://wallpaperaccess.com/full/253342.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 0;
+            font-size: 24px;
+            font-weight: 600;
+            border-bottom: 2px solid #4CAF50;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header span {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 100px;
+            width: 100%;
+        }
+
+        .form-header {
+            background-color: #F0F8FF;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            font-size: 20px;
+            margin: 0;
+            color: #333;
+        }
+
+        h2 {
+            color: #3b4f73;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5F6368;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            background-color: #ffffff;
+            box-shadow: 0 0 6px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #add-staff, #add-student {
+            display: none;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+            width: 100%;
+            height: auto;
+        }
+
+        .logout-btn:hover {
+            background-color: #e53935;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            header {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <span>Admin Dashboard</span>
+    </header>
+    <div class="container">
+        <label for="form-select">Choose a form:</label>
+        <select id="form-select" name="form-select">
+            <option value="staff">Add Staff</option>
+            <option value="student">Add Student</option>
+        </select>
+
+        <!-- Staff Form -->
+        <div id="staff-form" class="form-header">
+            <h2>Add Staff</h2>
+            <form>
+                <label for="staff-name">First Name:</label>
+                <input type="text" id="staff-name" name="staff-name" required>
+
+                <label for="staff-surname">Last Name:</label>
+                <input type="text" id="staff-surname" name="staff-surname" required>
+
+                <label for="staff-email">Email:</label>
+                <input type="email" id="staff-email" name="staff-email" required>
+
+                <label for="staff-phone">Phone:</label>
+                <input type="tel" id="staff-phone" name="staff-phone" required>
+
+                <label for="staff-department">Department:</label>
+                <input type="text" id="staff-department" name="staff-department" required>
+
+                <button type="submit">Add Staff</button>
+            </form>
+        </div>
+
+        <!-- Student Form -->
+        <div id="student-form" class="form-header">
+            <h2>Add Student</h2>
+            <form>
+                <label for="student-number">Student ID:</label>
+                <input type="text" id="student-number" name="student-number" required>
+
+                <label for="student-name">First Name:</label>
+                <input type="text" id="student-name" name="student-name" required>
+
+                <label for="student-surname">Last Name:</label>
+                <input type="text" id="student-surname" name="student-surname" required>
+
+                <label for="student-email">Email:</label>
+                <input type="email" id="student-email" name="student-email" required>
+
+                <label for="student-phone">Phone:</label>
+                <input type="tel" id="student-phone" name="student-phone" required>
+
+                <label for="student-department">Department:</label>
+                <input type="text" id="student-department" name="student-department" required>
+
+                <button type="submit">Add Student</button>
+            </form>
+            <button id="logout-btn" class="logout-btn">Logout</button>
+        </div>
+
+        <!-- Add User Form -->
+        <div class="form-header">
+            <h2>Add User</h2>
+            <form id="add-user-form">
+                <label for="new-username">Username:</label>
+                <input type="text" id="new-username" name="new-username" required>
+                <label for="new-password">Password:</label>
+                <input type="password" id="new-password" name="new-password" required>
+                <label for="new-role">Role:</label>
+                <select id="new-role" name="new-role" required>
+                    <option value="student">Student</option>
+                    <option value="staff">Staff</option>
+                </select>
+                <button type="submit">Add User</button>
+                <p id="add-user-message" style="color:red;"></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        (function() {
+            // Prevent access to this page without a valid session
+            if (!sessionStorage.getItem('userRole') || sessionStorage.getItem('userRole') !== 'admin') {
+                window.location.href = 'index.html';
+            }
+        })();
+
+        const formSelect = document.getElementById('form-select');
+        const staffForm = document.getElementById('staff-form');
+        const studentForm = document.getElementById('student-form');
+
+        formSelect.addEventListener('change', () => {
+            const selectedValue = formSelect.value;
+            staffForm.style.display = 'none';
+            studentForm.style.display = 'none';
+
+            if (selectedValue === 'staff') {
+                staffForm.style.display = 'block';
+            } else if (selectedValue === 'student') {
+                studentForm.style.display = 'block';
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            sessionStorage.clear();
+            window.location.href = 'index.html';
+        });
+
+        document.getElementById('add-user-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const username = document.getElementById('new-username').value;
+            const password = document.getElementById('new-password').value;
+            const role = document.getElementById('new-role').value;
+            const msg = document.getElementById('add-user-message');
+            msg.textContent = '';
+            try {
+                const res = await fetch('/add-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, role })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    msg.style.color = 'green';
+                    msg.textContent = 'User added successfully!';
+                } else {
+                    msg.style.color = 'red';
+                    msg.textContent = data.error || 'Failed to add user.';
+                }
+            } catch (err) {
+                msg.style.color = 'red';
+                msg.textContent = 'Server error.';
+            }
+        });
+    </script>
+</body>
+</html>

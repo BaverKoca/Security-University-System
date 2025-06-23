@@ -13,8 +13,8 @@
     }
 
     // Session timeout settings
-    const SESSION_DURATION = 5 * 60 * 1000; // 5 minutes
-    const INACTIVITY_LIMIT = 30 * 1000; // 30 seconds (change to 30*60*1000 for 30 minutes)
+    const SESSION_DURATION = 2 * 60 * 1000; // 2 minutes
+    const INACTIVITY_LIMIT = 2 * 60 * 1000; // 2 minutes
 
     // Set session and activity timers
     function setSession(role) {
@@ -73,28 +73,31 @@
     document.addEventListener('DOMContentLoaded', function() {
         const loginForm = document.getElementById('login-form');
         if (loginForm) {
-            loginForm.addEventListener('submit', function(e) {
+            loginForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
-                const username = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value.trim();
-                const desKey = document.getElementById('des_key').value.trim();
-                let redirect = null;
-                let role = null;
-                if (username === '1' && password === '1' && desKey === '1') {
-                    redirect = 'admin.html';
-                    role = 'admin';
-                } else if (username === '2' && password === '2' && desKey === '2') {
-                    redirect = 'staff.html';
-                    role = 'staff';
-                } else if (username === '3' && password === '3' && desKey === '3') {
-                    redirect = 'student.html';
-                    role = 'student';
-                } else {
-                    document.getElementById('error-message').textContent = 'Invalid credentials!';
-                    return;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const errorMsg = document.getElementById('error-message');
+                errorMsg.textContent = '';
+                try {
+                    const res = await fetch('/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        // Redirect based on role
+                        if (data.role === 'admin') window.location.href = 'admin.html';
+                        else if (data.role === 'student') window.location.href = 'student.html';
+                        else if (data.role === 'staff') window.location.href = 'staff.html';
+                        else window.location.href = 'index.html';
+                    } else {
+                        errorMsg.textContent = data.error || 'Login failed';
+                    }
+                } catch (err) {
+                    errorMsg.textContent = 'Server error';
                 }
-                setSession(role);
-                window.location.replace(redirect);
             });
         }
 
@@ -103,8 +106,10 @@
             let logoutBtn = document.getElementById('logout-btn');
             if (logoutBtn) {
                 logoutBtn.classList.add('show');
-                logoutBtn.onclick = function() {
+                logoutBtn.onclick = async function() {
                     clearSession();
+                    // Call backend to destroy session
+                    await fetch('/logout', { method: 'POST', credentials: 'include' });
                     window.location.replace('index.html');
                 };
             }
